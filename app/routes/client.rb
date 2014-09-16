@@ -4,7 +4,7 @@ module Brisk
 
       helpers do
         def ios?
-          request.user_agent =~ /iPhone|iPod|Android/
+          request.user_agent =~ /iPhone|iPod/
         end
 
         alias_method :mobile?, :ios?

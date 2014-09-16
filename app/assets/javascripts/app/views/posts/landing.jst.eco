@@ -8,8 +8,3 @@
   </article>
 </div>
 
-<% unless /monocle/i.test(@website_name): %>
-<footer>
-  <h2>Powered by Monocle</h2>
-</footer>
-<% end %>
