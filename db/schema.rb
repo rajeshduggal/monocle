@@ -3,7 +3,7 @@ Sequel.migration do
     create_table(:schema_info) do
       Integer :version, :default=>0, :null=>false
     end
-
+    
     create_table(:users, :ignore_index_errors=>true) do
       String :id, :null=>false
       Integer :iid, :null=>false
@@ -26,14 +26,14 @@ Sequel.migration do
       String :github, :text=>true
       String :secret, :text=>true
       TrueClass :manifesto, :default=>false
-
+      
       primary_key [:id]
-
+      
       index [:handle]
       index [:iid], :unique=>true
       index [:uid], :unique=>true
     end
-
+    
     create_table(:posts, :ignore_index_errors=>true) do
       String :id, :null=>false
       Integer :iid, :null=>false
@@ -54,22 +54,21 @@ Sequel.migration do
       String :body, :text=>true
       String :summary, :text=>true
       String :tweet_id, :text=>true
-      DateTime :scheduled_at
       DateTime :published_at
       Integer :comment_count, :default=>0, :null=>false
       Integer :comments_count, :default=>0, :null=>false
       String :user_handle, :text=>true
       String :voted_user_ids
       String :preview_url, :text=>true
-
+      
       primary_key [:id]
-
+      
       index [:iid], :unique=>true
       index [:published_at]
       index [:slug], :unique=>true
       index [:user_id]
     end
-
+    
     create_table(:user_invites, :ignore_index_errors=>true) do
       String :id, :null=>false
       Integer :iid, :null=>false
@@ -81,13 +80,13 @@ Sequel.migration do
       String :twitter, :size=>255
       String :github, :text=>true
       foreign_key :invited_user_id, :users, :type=>String, :key=>[:id]
-
+      
       primary_key [:id]
-
+      
       index [:code], :name=>:user_invites_code_key, :unique=>true
       index [:user_id]
     end
-
+    
     create_table(:comments, :ignore_index_errors=>true) do
       String :id, :null=>false
       Integer :iid, :null=>false
@@ -99,12 +98,12 @@ Sequel.migration do
       DateTime :created_at
       DateTime :updated_at
       foreign_key :parent_id, :comments, :type=>String, :key=>[:id]
-
+      
       primary_key [:id]
-
+      
       index [:iid], :unique=>true
     end
-
+    
     create_table(:post_visits, :ignore_index_errors=>true) do
       String :id, :null=>false
       Integer :iid, :null=>false
@@ -112,13 +111,13 @@ Sequel.migration do
       foreign_key :post_id, :posts, :type=>String, :key=>[:id]
       DateTime :created_at
       DateTime :updated_at
-
+      
       primary_key [:id]
-
+      
       index [:post_id]
       index [:user_id]
     end
-
+    
     create_table(:post_votes, :ignore_index_errors=>true) do
       String :id, :null=>false
       Integer :iid, :null=>false
@@ -126,13 +125,13 @@ Sequel.migration do
       foreign_key :post_id, :posts, :type=>String, :key=>[:id]
       DateTime :created_at
       DateTime :updated_at
-
+      
       primary_key [:id]
-
+      
       index [:post_id]
       index [:user_id]
     end
-
+    
     create_table(:comment_votes, :ignore_index_errors=>true) do
       String :id, :null=>false
       Integer :iid, :null=>false
@@ -140,9 +139,9 @@ Sequel.migration do
       foreign_key :comment_id, :comments, :type=>String, :key=>[:id]
       DateTime :created_at
       DateTime :updated_at
-
+      
       primary_key [:id]
-
+      
       index [:comment_id]
       index [:user_id]
     end

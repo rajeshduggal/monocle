@@ -27,9 +27,10 @@ module Brisk
         validates_invite_type
       end
 
-      def notify!
+      def notify!(settings)
+        puts "user_invite.notify:WEBSITE NAME = " + settings.website_name
         if email.present?
-          Mailer.user_invite!(self)
+          Mailer.user_invite!(settings,self)
         end
       end
 

@@ -1,3 +1,4 @@
+State   = require('app/state')
 moment = require('moment')
 
 moment.lang('en', {
@@ -42,7 +43,7 @@ pluralize = (word, number = 1) ->
 
 crop = (url, width, height) ->
   url = url.replace(/^https?:\/\//, '')
-  "//assets.example.com/crop/#{width}x#{height}/#{url}"
+  "//#{State.get('assets_host')}/crop/#{width}x#{height}/#{url}"
 
 createFragment = (value, element = document.createElement('div')) ->
   return value if value instanceof DocumentFragment

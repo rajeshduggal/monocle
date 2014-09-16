@@ -19,13 +19,16 @@ class App extends Controller
   constructor: (options = {}) ->
     super
     State.set(environment: options.environment)
+    State.set(website_name: options.website_name)
+    State.set(stream_subscribe_url: options.stream_subscribe_url)
+    State.set(assets_host: options.assets_host)
     State.set(user: options.user and new User(options.user))
 
     Session.setCSRFToken(options.csrfToken)
     Post.popular.add(options.posts)
 
     @append(@sidebar = new Sidebar)
-    @append(@posts = new Posts)
+    @append(@posts = new Posts(options.website_name))
 
     # Make sidebar the active area
     @sidebar.$el.click()

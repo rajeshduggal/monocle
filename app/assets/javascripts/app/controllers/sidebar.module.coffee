@@ -34,6 +34,7 @@ class Sidebar extends Controller
 
   render: =>
     @user = State.get('user')
+    @website_name = State.get('website_name')
     @html(@view('sidebar')(this))
 
     @$postsPopular = @$('.posts-popular')

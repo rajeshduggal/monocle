@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'sinatra', :require => 'sinatra/base'
+gem 'sinatra-contrib', '~> 1.4.2'
 gem 'unicorn'
 gem 'erubis'
 gem 'builder'

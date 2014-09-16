@@ -153,8 +153,8 @@ module Brisk
         self.save
       end
 
-      def slug_url
-        "http://example.com/posts/#{slug}"
+      def slug_fullpath
+        "/posts/#{slug}"
       end
 
       def safe_body

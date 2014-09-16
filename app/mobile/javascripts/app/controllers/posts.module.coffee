@@ -24,6 +24,7 @@ class Posts extends Controller
     @render()
 
   render: =>
+    @website_name = State.get('website_name')
     @html(@view('posts')(this))
     @$posts = @$('.posts-list ul')
     @addAll()

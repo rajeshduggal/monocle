@@ -1,9 +1,9 @@
 xml.instruct! :xml, :version => "1.0"
 xml.rss :version => "2.0" do
   xml.channel do
-    xml.title "Monocle News"
-    xml.description "Information for information's sake"
-    xml.link "http://example.com/"
+    xml.title settings.website_name
+    xml.description settings.website_description
+    xml.link "#{request.base_url}/"
 
     @posts.each do |post|
       xml.item do
@@ -14,7 +14,7 @@ xml.rss :version => "2.0" do
           #{post.summary}
           <p>
             <a href="#{post.url}">Read more</a> |
-            <a href="#{post.slug_url}">Comments</a>
+            <a href="#{request.base_url + post.slug_fullpath}">Comments</a>
           </p>
         })
 

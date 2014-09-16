@@ -16,7 +16,7 @@ module Brisk
 
       helpers do
         def ios?
-          request.user_agent =~ /iPhone|iPod/
+          request.user_agent =~ /iPhone|iPod|Android/
         end
 
         def cache(key)

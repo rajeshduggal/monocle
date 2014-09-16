@@ -1,0 +1,11 @@
+invite system is broken so still mentions Monocle rather than new website name from config.yml.  I wasn't able to confirm changes were working so didn't touch those files until we get the invite system working again.
+
+
+Add a config.yml instead of adding to the .env for things that wouldn't really change from one server env to the next. e.g. if it's a configuration that would stay the same no matter if in dev, staging, test, prod, etc.o
+
+Deleted the mosspawn images used for the mobile site, and replaced it with google fonts instead.  Not sure why the original was using a graphic.
+
+Added a "powered by Monocle" footer to the landing page when the websitename doesn't contain the word monocle.
+
+
+

@@ -19,6 +19,9 @@ module Brisk
       register Extensions::Assets
       register Extensions::Auth
       register Extensions::Cache
+      register Sinatra::ConfigFile
+
+      config_file './config.yml'
 
       error Sequel::ValidationFailed do
         status 406

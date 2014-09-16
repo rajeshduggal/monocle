@@ -14,6 +14,7 @@ class App extends Controller
   constructor: (options = {}) ->
     super
     Session.setCSRFToken(options.csrfToken)
+    State.set(website_name: options.website_name)
 
     @append(@posts = new Posts)
     @append(@comments = new Comments)

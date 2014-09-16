@@ -64,6 +64,25 @@ module Brisk
         post = Post.first!(id: params[:id])
         redirect post.url
       end
+      
+      get '/v1/posts-cj' do
+        post = Post.new
+        post.set_fields(params, [:title, :url, :preview_url, :summary])
+        post.user   = Brisk::Models::User.first
+        post.notify = true
+
+        post.save!
+        post.vote!(post.user)
+
+        begin
+          post.retrieve!
+        rescue Nestful::ConnectionError => e
+          logger.error e
+        end
+
+        publish [:posts, :create], id: post.id
+        json post
+      end
 
       post '/v1/posts', :auth => true do
         existing = Post.today.url(params[:url]).first

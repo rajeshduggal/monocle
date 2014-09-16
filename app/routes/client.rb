@@ -1,9 +1,10 @@
 module Brisk
   module Routes
     class Client < Base
+
       helpers do
         def ios?
-          request.user_agent =~ /iPhone|iPod/
+          request.user_agent =~ /iPhone|iPod|Android/
         end
 
         alias_method :mobile?, :ios?
@@ -46,6 +47,9 @@ module Brisk
 
         @options = {
           environment: settings.environment,
+          website_name: settings.website_name,
+          stream_subscribe_url: ENV['STREAM_SUBSCRIBE_URL'],
+          assets_host: ENV['ASSETS_HOST'],
           csrfToken:   csrf_token,
           user:        current_user,
           posts:       ios? ? [] : posts,

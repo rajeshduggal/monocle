@@ -12,23 +12,24 @@ withUser    = State.withActiveUser
 class Posts extends Controller
   className: 'posts-show'
 
-  constructor: ->
+  constructor: (website_name) ->
     super
+    State.set(website_name: website_name)
 
     @$el.activeArea()
     @on 'click', 'a[data-user-id]', @clickUser
 
     State.observeKey 'post', =>
-      @render(State.get('post'))
+      @render(State.get('post'),website_name)
 
-  render: (@post) =>
+  render: (@post,website_name) =>
     @$el.empty()
 
     if @post
       @append(@details  = new Details(post: @post))
       @append(@comments = new Comments(post: @post))
     else
-      @append(@landing = new Landing)
+      @append(@landing = new Landing(website_name))
 
   # Private
 

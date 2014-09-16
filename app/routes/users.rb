@@ -64,6 +64,7 @@ module Brisk
         end
 
         invite = UserInvite.new(
+          website_name: settings.website_name,
           email:   params[:email],
           twitter: params[:twitter],
           github:  params[:github]
@@ -82,7 +83,7 @@ module Brisk
 
         # We haven't sent them an invite already
         elsif !invite.similar_invite
-          invite.notify!
+          invite.notify!(settings)
         end
 
         200
@@ -94,6 +95,7 @@ module Brisk
         end
 
         Mailer.feedback!(
+          settings,
           params[:text],
           params[:email]
         )

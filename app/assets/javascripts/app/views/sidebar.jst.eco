@@ -1,5 +1,5 @@
 <header>
-  <a class="logo landing">monocle</a>
+  <a class="logo landing"><%= @website_name %></a>
 
   <nav>
     <div class="clip">

@@ -3,6 +3,7 @@ require 'active_support/core_ext/array'
 require 'active_support/core_ext/hash'
 require 'lib/sequel/url_validation_helpers'
 require 'lib/sequel/save_helpers'
+require 'yaml'
 
 Sequel.default_timezone = :utc
 
@@ -32,6 +33,9 @@ Sequel::Postgres::PGArray.register('uuid', :type_symbol => :string)
 
 module Brisk
   module Models
+
+    CONFIG = YAML.load_file("./config.yml") unless defined? CONFIG
+
     autoload :Comment, 'app/models/comment'
     autoload :CommentVote, 'app/models/comment_vote'
     autoload :PostVote, 'app/models/post_vote'

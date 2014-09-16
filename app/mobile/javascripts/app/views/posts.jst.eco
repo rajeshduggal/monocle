@@ -1,5 +1,5 @@
 <header>
-  <h1>monocle</h1>
+  <h1><%= @website_name %></h1>
 </header>
 
 <div class="scroll">

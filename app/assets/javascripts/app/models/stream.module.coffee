@@ -1,12 +1,15 @@
+State   = require('app/state')
 Stream  = require('stream')
 Session = require('session')
 Post    = -> require('app/models/post')
 Comment = -> require('app/models/comment')
 
 class ModelStream extends Stream
-  url: 'http://stream.example.com/subscribe'
+  url: ""
 
   constructor: ->
+    @url = State.get('stream_subscribe_url')
+
     super
 
     @on 'setup', (id) ->

@@ -9,6 +9,7 @@ require 'dotenv'
 Dotenv.load
 
 require 'sinatra/base'
+require 'sinatra/config_file'
 require 'sinatra/sequel'
 require 'sinatra/static_cache'
 require 'active_support/json'
@@ -26,6 +27,11 @@ require 'app/routes'
 
 module Brisk
   class App < Sinatra::Application
+
+    register Sinatra::ConfigFile
+
+    config_file './config.yml'
+
     configure do
       set :database, lambda {
         ENV['DATABASE_URL'] ||
@@ -45,12 +51,26 @@ module Brisk
           :httponly     => true,
           :secure       => false,
           :expire_after => 5.years,
-          :secret       => ENV['SESSION_SECRET']
+          :secret       => ENV['SESSION_SECRET'],
+          :assets_host  => ENV['ASSETS_HOST'],
+          :stream_subscribe_url => ENV['STREAM_SUBSCRIBE_URL']
     end
+
 
     configure do
       Mail.defaults do
-        delivery_method :file
+        unless ENV['SMTP_ADDRESS']
+            delivery_method :file
+        else
+            delivery_method :smtp, {
+              :address              => ENV['SMTP_ADDRESS'],
+              :port                 => ENV['SMTP_PORT'],
+              :domain               => ENV['SMTP_DOMAIN'],
+              :user_name            => ENV['SMTP_USER_NAME'],
+              :password             => ENV['SMTP_PASSWORD'],
+              :authentication       => ENV['SMTP_AUTHENTICATION'],
+              :enable_starttls_auto => ENV['SMTP_ENABLE_STARTTLS_AUTO'] }
+        end
       end
     end
 
